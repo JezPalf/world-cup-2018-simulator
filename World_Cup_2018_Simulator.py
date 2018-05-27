@@ -2,6 +2,8 @@ import itertools
 from random import random, randint
 import texttable
 import operator
+from collections import Counter
+import pprint
 
 
 # the fixture function finds the result of the two teams and updates the team class as appropriate
@@ -229,5 +231,23 @@ class Team:
         return f'{self.team}'
 
 
-# Use the simulator
-world_cup_simulator(reporting=True)
+# My useless code :)
+
+def multiSim(num):
+    count = num
+    winners = []
+    while count > 0:
+        count -= 1
+        winners.append(str((world_cup_simulator(reporting=False))))
+    topFive = Counter(winners).most_common(5)
+    print('The teams with the most world cup wins are:')
+    pprint.pprint(topFive)
+
+
+answer = input('Would you like a [d]etailed simulation or run [m]ultiple simulations? ')
+if answer == 'd':
+    world_cup_simulator(reporting=True)
+
+elif answer == 'm':
+    num = int(input('How many times would you like to run the simulation? '))
+    multiSim(num)
